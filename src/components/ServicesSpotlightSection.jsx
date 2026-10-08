@@ -21,13 +21,13 @@ export default function ServicesSpotlightSection({ onNavigate }) {
 
   const scrollLeft = () => {
     if (scrollTrackRef.current) {
-      scrollTrackRef.current.scrollBy({ left: -364, behavior: 'smooth' });
+      scrollTrackRef.current.scrollBy({ left: -320, behavior: 'smooth' });
     }
   };
 
   const scrollRight = () => {
     if (scrollTrackRef.current) {
-      scrollTrackRef.current.scrollBy({ left: 364, behavior: 'smooth' });
+      scrollTrackRef.current.scrollBy({ left: 320, behavior: 'smooth' });
     }
   };
 
@@ -35,16 +35,18 @@ export default function ServicesSpotlightSection({ onNavigate }) {
     <div className="services-cyber-wrapper" style={{ width: '100%', maxWidth: '1280px', margin: '0 auto', pointerEvents: 'auto' }}>
       
       {/* Top Controls: 01 to 08 Badge & Scroll Navigation Buttons */}
-      <div style={{
+      <div className="services-controls-bar" style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: '28px',
-        padding: '0 12px'
+        flexWrap: 'wrap',
+        gap: '12px',
+        marginBottom: '20px',
+        padding: '0 8px'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
           <span style={{
-            padding: '7px 16px',
+            padding: '6px 14px',
             borderRadius: '999px',
             background: 'rgba(34, 211, 238, 0.1)',
             border: '1px solid rgba(34, 211, 238, 0.3)',
@@ -55,16 +57,16 @@ export default function ServicesSpotlightSection({ onNavigate }) {
             color: '#22d3ee',
             boxShadow: '0 0 20px rgba(34, 211, 238, 0.15)'
           }}>
-            01 — 08 CYBER TILT CARDS
+            01 — 08 SERVICES
           </span>
           <span style={{
-            fontSize: '12px',
+            fontSize: '11px',
             fontFamily: "'Space Grotesk', sans-serif",
             textTransform: 'uppercase',
             letterSpacing: '0.12em',
             color: 'rgba(245, 243, 255, 0.5)'
           }}>
-            Scroll Right → Left
+            Swipe or Scroll Right → Left
           </span>
         </div>
 
@@ -73,7 +75,8 @@ export default function ServicesSpotlightSection({ onNavigate }) {
           <button
             type="button"
             onClick={scrollLeft}
-            aria-label="Previous card"
+            aria-label="Previous service"
+            className="services-nav-arrow"
             style={{
               width: '42px',
               height: '42px',
@@ -86,7 +89,8 @@ export default function ServicesSpotlightSection({ onNavigate }) {
               justifyContent: 'center',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
-              backdropFilter: 'blur(8px)'
+              backdropFilter: 'blur(8px)',
+              touchAction: 'manipulation'
             }}
           >
             <ChevronLeft size={20} />
@@ -94,7 +98,8 @@ export default function ServicesSpotlightSection({ onNavigate }) {
           <button
             type="button"
             onClick={scrollRight}
-            aria-label="Next card"
+            aria-label="Next service"
+            className="services-nav-arrow"
             style={{
               width: '42px',
               height: '42px',
@@ -108,7 +113,8 @@ export default function ServicesSpotlightSection({ onNavigate }) {
               cursor: 'pointer',
               transition: 'all 0.2s ease',
               boxShadow: '0 0 16px rgba(34, 211, 238, 0.25)',
-              backdropFilter: 'blur(8px)'
+              backdropFilter: 'blur(8px)',
+              touchAction: 'manipulation'
             }}
           >
             <ChevronRight size={20} />
@@ -119,14 +125,18 @@ export default function ServicesSpotlightSection({ onNavigate }) {
       {/* Horizontal Curved Track: All 8 Cards EXACT Same Size with Uiverse 3D Tilt */}
       <div
         ref={scrollTrackRef}
+        className="services-horizontal-track"
         style={{
           width: '100%',
           display: 'flex',
           alignItems: 'stretch',
-          gap: '24px',
+          gap: '20px',
           overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          scrollPaddingLeft: '12px',
+          scrollPaddingRight: '12px',
           scrollSnapType: 'x mandatory',
-          padding: '16px 12px 40px 12px',
+          padding: '12px 8px 24px 8px',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none'
         }}

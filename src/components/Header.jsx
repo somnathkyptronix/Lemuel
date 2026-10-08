@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SERVICES } from '../data/companyInfo';
+import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Home', page: 0 },
@@ -28,13 +29,13 @@ export default function Header({ onNavigate }) {
 
   return (
     <header className="header">
-      <button className="logo" onClick={() => handleNavClick(0)}>
+      <button className="logo" onClick={() => handleNavClick(0)} aria-label="Lemuel Home">
         LEMUEL
         <span className="logo__sub">TECHNICAL SERVICES INC</span>
       </button>
 
       {/* Desktop Navigation */}
-      <nav className="nav">
+      <nav className="nav" aria-label="Main Navigation">
         {NAV_ITEMS.map((item) => {
           if (item.hasDropdown) {
             return (
@@ -48,7 +49,7 @@ export default function Header({ onNavigate }) {
                   className="nav-btn nav-btn--dropdown"
                   onClick={() => handleNavClick(item.page)}
                 >
-                  {item.label} <span className="caret">▾</span>
+                  {item.label} <ChevronDown size={13} className="caret" />
                 </button>
                 {dropdownOpen && (
                   <div className="dropdown-menu">
@@ -83,28 +84,30 @@ export default function Header({ onNavigate }) {
         })}
       </nav>
 
-      {/* Header Action Button */}
+      {/* Header Actions */}
       <div className="header-actions">
         <button
-          className="cta cta--header"
+          className="cta cta--header desktop-only-cta"
           onClick={() => handleNavClick(7)}
         >
-          Start a Project →
+          <span>Start a Project</span>
+          <ArrowRight size={13} style={{ marginLeft: '6px', verticalAlign: 'middle' }} />
         </button>
 
         {/* Mobile menu toggle */}
         <button
           className="mobile-menu-toggle"
           onClick={() => setMobileMenuOpen((prev) => !prev)}
-          aria-label="Toggle navigation menu"
+          aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileMenuOpen}
         >
-          {mobileMenuOpen ? '✕' : '☰'}
+          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="mobile-drawer">
+        <div className="mobile-drawer" role="dialog" aria-label="Mobile Navigation Menu">
           <div className="mobile-drawer__links">
             {NAV_ITEMS.map((item) => (
               <button
@@ -112,15 +115,24 @@ export default function Header({ onNavigate }) {
                 className="mobile-drawer__btn"
                 onClick={() => handleNavClick(item.page)}
               >
-                {item.label}
+                <span>{item.label}</span>
+                <span className="mobile-drawer__num">0{item.page + 1}</span>
               </button>
             ))}
             <button
-              className="cta"
-              style={{ marginTop: '20px', width: '100%', textAlign: 'center' }}
+              className="cta cta--big"
+              style={{
+                marginTop: '16px',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px'
+              }}
               onClick={() => handleNavClick(7)}
             >
-              Start a Project →
+              <span>Start a Project</span>
+              <ArrowRight size={16} />
             </button>
           </div>
         </div>
