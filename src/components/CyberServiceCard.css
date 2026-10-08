@@ -1,0 +1,295 @@
+/* ==================================================
+   UIVERSE 3D CYBER TILT CARD (By 00Kubi, Adapted)
+   ================================================== */
+.cyber-card-container {
+  position: relative;
+  width: 340px;
+  min-width: 340px;
+  height: 440px;
+  transition: width 200ms ease, height 200ms ease;
+  flex: 0 0 340px;
+  scroll-snap-align: start;
+}
+
+.cyber-card-container:active {
+  transform: scale(0.98);
+}
+
+.cyber-canvas {
+  perspective: 900px;
+  inset: 0;
+  z-index: 10;
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+}
+
+.cyber-tracker {
+  position: relative;
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* 3D Rotations for 25 Grid Areas */
+.tr-1:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(18deg) rotateY(-10deg) translateZ(10px); }
+.tr-2:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(18deg) rotateY(-5deg) translateZ(10px); }
+.tr-3:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(18deg) rotateY(0deg) translateZ(10px); }
+.tr-4:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(18deg) rotateY(5deg) translateZ(10px); }
+.tr-5:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(18deg) rotateY(10deg) translateZ(10px); }
+
+.tr-6:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(9deg) rotateY(-10deg) translateZ(8px); }
+.tr-7:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(9deg) rotateY(-5deg) translateZ(8px); }
+.tr-8:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(9deg) rotateY(0deg) translateZ(8px); }
+.tr-9:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(9deg) rotateY(5deg) translateZ(8px); }
+.tr-10:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(9deg) rotateY(10deg) translateZ(8px); }
+
+.tr-11:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(-10deg) translateZ(6px); }
+.tr-12:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(-5deg) translateZ(6px); }
+.tr-13:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(0deg) translateZ(6px); }
+.tr-14:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(5deg) translateZ(6px); }
+.tr-15:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(0deg) rotateY(10deg) translateZ(6px); }
+
+.tr-16:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(-9deg) rotateY(-10deg) translateZ(8px); }
+.tr-17:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(-9deg) rotateY(-5deg) translateZ(8px); }
+.tr-18:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(-9deg) rotateY(0deg) translateZ(8px); }
+.tr-19:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(-9deg) rotateY(5deg) translateZ(8px); }
+.tr-20:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(-9deg) rotateY(10deg) translateZ(8px); }
+
+.tr-21:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(-18deg) rotateY(-10deg) translateZ(10px); }
+.tr-22:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(-18deg) rotateY(-5deg) translateZ(10px); }
+.tr-23:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(-18deg) rotateY(0deg) translateZ(10px); }
+.tr-24:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(-18deg) rotateY(5deg) translateZ(10px); }
+.tr-25:hover ~ .cyber-card { transition: 125ms ease-in-out; transform: rotateX(-18deg) rotateY(10deg) translateZ(10px); }
+
+/* The Card Body */
+.cyber-card {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 28px;
+  transition: 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: linear-gradient(135deg, #0d111c 0%, #151a2b 50%, #0d111c 100%);
+  border: 1.5px solid rgba(34, 211, 238, 0.25);
+  overflow: hidden;
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.65),
+    inset 0 0 25px rgba(34, 211, 238, 0.05);
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+.cyber-card-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+/* Card Glow Elements */
+.glowing-elements {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.glow-1,
+.glow-2,
+.glow-3 {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(34, 211, 238, 0.35) 0%,
+    rgba(34, 211, 238, 0) 70%
+  );
+  filter: blur(18px);
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
+}
+
+.glow-1 { top: -20px; left: -20px; }
+.glow-2 { top: 50%; right: -30px; transform: translateY(-50%); }
+.glow-3 { bottom: -20px; left: 30%; }
+
+.cyber-tracker:hover ~ .cyber-card .glowing-elements div {
+  opacity: 0.9;
+}
+
+/* Floating Particles */
+.card-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.card-particles span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #22d3ee;
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 8px #22d3ee;
+  transition: opacity 0.3s ease;
+}
+
+.cyber-tracker:hover ~ .cyber-card .card-particles span {
+  animation: particleFloat 2.2s infinite ease-in-out;
+}
+
+@keyframes particleFloat {
+  0% { transform: translate(0, 0); opacity: 0; }
+  50% { opacity: 0.85; }
+  100% { transform: translate(calc(var(--x, 0) * 36px), calc(var(--y, 0) * 36px)); opacity: 0; }
+}
+
+.card-particles span:nth-child(1) { --x: 1; --y: -1; top: 35%; left: 15%; }
+.card-particles span:nth-child(2) { --x: -1; --y: -1; top: 60%; right: 18%; }
+.card-particles span:nth-child(3) { --x: 0.5; --y: 1; top: 20%; left: 45%; }
+.card-particles span:nth-child(4) { --x: -0.5; --y: 1; top: 80%; right: 40%; }
+.card-particles span:nth-child(5) { --x: 1; --y: 0.5; top: 30%; left: 65%; }
+.card-particles span:nth-child(6) { --x: -1; --y: 0.5; top: 75%; right: 65%; }
+
+/* Card Holographic Glare */
+.card-glare {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(34, 211, 238, 0.12) 50%,
+    rgba(255, 255, 255, 0.04) 55%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+.cyber-tracker:hover ~ .cyber-card .card-glare {
+  opacity: 1;
+}
+
+/* Cyber Scanning Lines */
+.cyber-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cyber-lines span {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.3), transparent);
+}
+
+.cyber-lines span:nth-child(1) {
+  top: 25%; left: 0; width: 100%; height: 1px;
+  transform: scaleX(0); transform-origin: left;
+  animation: lineGrow 3s linear infinite;
+}
+.cyber-lines span:nth-child(2) {
+  top: 50%; right: 0; width: 100%; height: 1px;
+  transform: scaleX(0); transform-origin: right;
+  animation: lineGrow 3s linear infinite 1s;
+}
+.cyber-lines span:nth-child(3) {
+  top: 75%; left: 0; width: 100%; height: 1px;
+  transform: scaleX(0); transform-origin: left;
+  animation: lineGrow 3s linear infinite 2s;
+}
+.cyber-lines span:nth-child(4) {
+  top: 90%; right: 0; width: 100%; height: 1px;
+  transform: scaleX(0); transform-origin: right;
+  animation: lineGrow 3s linear infinite 1.5s;
+}
+
+@keyframes lineGrow {
+  0% { transform: scaleX(0); opacity: 0; }
+  50% { transform: scaleX(1); opacity: 0.8; }
+  100% { transform: scaleX(0); opacity: 0; }
+}
+
+/* Corner Futuristic Tech Brackets */
+.corner-elements {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.corner-elements span {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(34, 211, 238, 0.35);
+  transition: all 0.3s ease;
+}
+
+.corner-elements span:nth-child(1) { top: 12px; left: 12px; border-right: 0; border-bottom: 0; border-top-left-radius: 8px; }
+.corner-elements span:nth-child(2) { top: 12px; right: 12px; border-left: 0; border-bottom: 0; border-top-right-radius: 8px; }
+.corner-elements span:nth-child(3) { bottom: 12px; left: 12px; border-right: 0; border-top: 0; border-bottom-left-radius: 8px; }
+.corner-elements span:nth-child(4) { bottom: 12px; right: 12px; border-left: 0; border-top: 0; border-bottom-right-radius: 8px; }
+
+.cyber-tracker:hover ~ .cyber-card .corner-elements span {
+  border-color: #22d3ee;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.7);
+}
+
+/* Vertical Moving Scan Line */
+.scan-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.12), transparent);
+  transform: translateY(-100%);
+  animation: scanMove 2.5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanMove {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.cyber-card::before {
+  content: "";
+  background: radial-gradient(
+    circle at center,
+    rgba(34, 211, 238, 0.15) 0%,
+    rgba(99, 102, 241, 0.08) 50%,
+    transparent 100%
+  );
+  filter: blur(25px);
+  opacity: 0;
+  width: 140%;
+  height: 140%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.cyber-tracker:hover ~ .cyber-card::before {
+  opacity: 1;
+}
+
+.cyber-card-container:hover .cyber-card {
+  filter: brightness(1.12);
+  border-color: rgba(34, 211, 238, 0.6);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8), 0 0 24px rgba(34, 211, 238, 0.25);
+}
