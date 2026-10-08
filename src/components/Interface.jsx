@@ -1,6 +1,7 @@
 import ServicesSpotlightSection from './ServicesSpotlightSection';
 import ServicesTiltedHero from './ServicesTiltedHero';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Marquee from './Marquee';
 import CurvedLoop from './CurvedLoop';
 import SpotlightCard from './SpotlightCard';
@@ -21,6 +22,19 @@ import {
 export default function Interface({ onNavigate, onSelectProject, scrollContainer }) {
   const [activeFaq, setActiveFaq] = useState(null);
   const [legalModal, setLegalModal] = useState({ isOpen: false, type: 'privacy' });
+  const solutionsTrackRef = useRef(null);
+
+  const scrollSolutionsLeft = () => {
+    if (solutionsTrackRef.current) {
+      solutionsTrackRef.current.scrollBy({ left: -280, behavior: 'smooth' });
+    }
+  };
+
+  const scrollSolutionsRight = () => {
+    if (solutionsTrackRef.current) {
+      solutionsTrackRef.current.scrollBy({ left: 280, behavior: 'smooth' });
+    }
+  };
 
   const toggleFaq = (idx) => {
     setActiveFaq((prev) => (prev === idx ? null : idx));
@@ -112,7 +126,34 @@ export default function Interface({ onNavigate, onSelectProject, scrollContainer
         </h2>
         <p className="body">{WHY_US.description}</p>
 
-        <div className="cards-grid cards-grid--slide-down">
+        {/* Mobile-Only Manual Arrow Navigation for Card Swipe */}
+        <div className="solutions-mobile-controls">
+          <div className="solutions-mobile-info">
+            <span className="solutions-badge">01 — 05 SOLUTIONS</span>
+            <span className="solutions-hint">Swipe cards or tap arrow</span>
+          </div>
+
+          <div className="solutions-arrows-group">
+            <button
+              type="button"
+              className="solutions-nav-arrow"
+              onClick={scrollSolutionsLeft}
+              aria-label="Previous solution card"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              type="button"
+              className="solutions-nav-arrow solutions-nav-arrow--primary"
+              onClick={scrollSolutionsRight}
+              aria-label="Next solution card (swipe left)"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </div>
+
+        <div ref={solutionsTrackRef} className="cards-grid cards-grid--slide-down">
           {WHY_US.items.map((item, idx) => (
             <SpotlightCard
               key={idx}
