@@ -1,4 +1,4 @@
-import React, { useRef, useState, Suspense, useCallback } from 'react';
+import React, { useRef, useState, Suspense, useCallback, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ScrollControls, Scroll } from '@react-three/drei';
 import Header from './components/Header';
@@ -16,6 +16,31 @@ export default function App() {
     scrollContainerRef.current = el;
     setScrollEl(el);
   }, []);
+
+  // Keep Drei's scroll container height synchronized with actual Interface content height on all devices
+  useEffect(() => {
+    if (!scrollEl) return;
+    const fillEl = scrollEl.firstElementChild;
+    const interfaceEl = scrollEl.querySelector('.interface');
+    if (!fillEl || !interfaceEl) return;
+
+    const updateHeight = () => {
+      const naturalHeight = interfaceEl.scrollHeight;
+      if (naturalHeight > 0) {
+        fillEl.style.height = `${Math.max(naturalHeight, window.innerHeight * TOTAL_PAGES)}px`;
+      }
+    };
+
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(interfaceEl);
+    window.addEventListener('resize', updateHeight);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateHeight);
+    };
+  }, [scrollEl]);
 
   const handleNavigate = useCallback((pageIndex) => {
     if (!scrollContainerRef.current) return;
