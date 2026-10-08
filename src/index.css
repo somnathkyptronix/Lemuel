@@ -1842,17 +1842,12 @@ html, body {
     letter-spacing: 0.15em;
   }
 
-  /* Section Sizing: Natural Single Scrolling View across all devices */
+  /* Section Sizing & Overflow Protection */
   .section {
-    padding: 75px 5vw 40px !important;
-    height: auto !important;
+    padding: 70px 5vw 30px !important;
+    height: 100vh !important;
     min-height: 100vh !important;
-    box-sizing: border-box !important;
-    overflow: visible !important;
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
+    box-sizing: border-box;
   }
 
   .section[data-num]:before {
@@ -1962,13 +1957,13 @@ html, body {
     font-size: 12px !important;
   }
 
-  /* 05 Industries & Tech Stack: Part of Single Unified Scroll */
+  /* 05 Industries & Tech Stack: Scrollable column on mobile */
   .section--industries-tech {
     justify-content: flex-start !important;
-    padding-top: 75px !important;
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow: visible !important;
+    padding-top: 70px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    pointer-events: auto !important;
   }
 
   .industries-tech-split {
@@ -1987,13 +1982,13 @@ html, body {
     border-radius: 12px !important;
   }
 
-  /* 06 Portfolio: Part of Single Unified Scroll */
+  /* 06 Portfolio: Scrollable column on mobile */
   .section--portfolio {
     justify-content: flex-start !important;
-    padding-top: 75px !important;
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow: visible !important;
+    padding-top: 70px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    pointer-events: auto !important;
   }
 
   .portfolio-content-col {
@@ -2005,72 +2000,71 @@ html, body {
     padding: 12px 14px !important;
   }
 
-  /* 07 FAQ: Fully Visible Content, Part of Single Unified Scroll */
+  /* 07 FAQ: Prevent bleed-through / underlap into Section 08 */
   .section[data-num="07"] {
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow: visible !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
     justify-content: center !important;
-    padding-top: 75px !important;
-    padding-bottom: 40px !important;
+    padding-top: 65px !important;
+    padding-bottom: 25px !important;
+    box-sizing: border-box !important;
   }
 
   .faq-container {
     max-width: 100% !important;
     width: 100% !important;
-    max-height: none !important;
-    overflow: visible !important;
+    max-height: 52vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-right: 6px !important;
     pointer-events: auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(34, 211, 238, 0.3) transparent !important;
+  }
+
+  .faq-container::-webkit-scrollbar {
+    width: 4px !important;
+  }
+  .faq-container::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+  .faq-container::-webkit-scrollbar-thumb {
+    background: rgba(34, 211, 238, 0.3) !important;
+    border-radius: 999px !important;
   }
 
   .faq-item {
-    padding: 0 !important;
-    margin-bottom: 0 !important;
-    border-radius: 14px !important;
-    background: var(--card-bg) !important;
-    border: 1px solid var(--border-dim) !important;
-    overflow: visible !important;
-    box-sizing: border-box !important;
+    padding: 12px 14px !important;
+    margin-bottom: 8px !important;
+    border-radius: 12px !important;
   }
 
   .faq-question {
-    padding: 16px 18px !important;
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif !important;
-    font-size: 13.5px !important;
-    font-weight: 600 !important;
-    line-height: 1.45 !important;
-    color: #fff !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 12px !important;
-    text-align: left !important;
-    cursor: pointer !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
   }
 
   .faq-answer {
-    padding: 0 18px 16px !important;
-    font-size: 13px !important;
-    line-height: 1.6 !important;
-    color: rgba(245, 243, 255, 0.75) !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    margin-top: 8px !important;
   }
 
-  /* 08 Contact & Footer: Part of Single Unified Scroll (NOT separate inner scroll) */
+  /* 08 Contact & Footer: Solid Opaque Surface & Independent Scroll (Mobile Only) */
   .section--contact,
   .section[data-num="08"] {
-    height: auto !important;
-    min-height: 100vh !important;
-    overflow: visible !important;
+    position: relative !important;
+    z-index: 30 !important;
+    background: #050509 !important; /* Fully opaque so previous sections never bleed through */
+    box-shadow: 0 -25px 50px rgba(5, 5, 9, 1) !important;
     justify-content: flex-start !important;
     padding-top: 75px !important;
     padding-bottom: 50px !important;
-    position: relative !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    pointer-events: auto !important;
     clear: both !important;
-    display: flex !important;
-    flex-direction: column !important;
   }
 
   .contact-curved-loop-wrapper {
