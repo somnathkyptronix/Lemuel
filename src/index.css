@@ -2000,27 +2000,71 @@ html, body {
     padding: 12px 14px !important;
   }
 
-  /* 07 FAQ */
+  /* 07 FAQ: Prevent bleed-through / underlap into Section 08 */
+  .section[data-num="07"] {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    justify-content: center !important;
+    padding-top: 65px !important;
+    padding-bottom: 25px !important;
+    box-sizing: border-box !important;
+  }
+
   .faq-container {
     max-width: 100% !important;
+    width: 100% !important;
+    max-height: 52vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-right: 6px !important;
+    pointer-events: auto !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(34, 211, 238, 0.3) transparent !important;
+  }
+
+  .faq-container::-webkit-scrollbar {
+    width: 4px !important;
+  }
+  .faq-container::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+  .faq-container::-webkit-scrollbar-thumb {
+    background: rgba(34, 211, 238, 0.3) !important;
+    border-radius: 999px !important;
   }
 
   .faq-item {
-    padding: 14px 16px !important;
+    padding: 12px 14px !important;
+    margin-bottom: 8px !important;
+    border-radius: 12px !important;
   }
 
   .faq-question {
-    font-size: 13.5px !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
   }
 
-  /* 08 Contact & Footer: Scrollable container on mobile */
-  .section--contact {
+  .faq-answer {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    margin-top: 8px !important;
+  }
+
+  /* 08 Contact & Footer: Solid Opaque Surface & Independent Scroll (Mobile Only) */
+  .section--contact,
+  .section[data-num="08"] {
+    position: relative !important;
+    z-index: 30 !important;
+    background: #050509 !important; /* Fully opaque so previous sections never bleed through */
+    box-shadow: 0 -25px 50px rgba(5, 5, 9, 1) !important;
     justify-content: flex-start !important;
-    padding-top: 70px !important;
-    padding-bottom: 40px !important;
+    padding-top: 75px !important;
+    padding-bottom: 50px !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
     pointer-events: auto !important;
+    clear: both !important;
   }
 
   .contact-curved-loop-wrapper {
